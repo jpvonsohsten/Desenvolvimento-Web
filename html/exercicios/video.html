@@ -1,0 +1,69 @@
+<video id="meuVideo" width="800px" height="450px" controls>
+    <source src="http://files.cod3r.com.br/curso-web/video.mp4" type="video/mp4">
+</video>
+
+<div wm-progresso="meuVideo" class="progresso">
+    <div></div>
+</div>
+
+<div>
+    <button id="playButton" wm-play="meuVideo">Play</button>
+    <button id="pauseButton" wm-pause="meuVideo">Pause</button>
+</div>
+
+<style>
+    .progresso {
+        height: 20px;
+        width: 500px;
+        border: solid 1px #444;
+        margin: 20px;
+    }
+
+    .progresso > div {
+        background-color: red;
+        color: #fff;
+        height: 100%;
+        text-align: right;
+        font-size: 14px;
+        width: 0%;
+    }
+</style>
+
+<script>
+    function playVideo(videoId, video) {
+        const botao = document.querySelector(`[wm-play=${videoId}]`)
+ 
+        botao.onclick = e => video.play()
+    }
+ 
+    function pauseVideo(videoId, video) {
+        const botao = document.querySelector(`[wm-pause=${videoId}]`)
+ 
+        botao.onclick = e => video.pause()
+    }
+ 
+    function progressoVideo(videoId, video) {
+        const progresso = document.querySelector(`[wm-progresso=${videoId}] > div`)
+ 
+        video.ontimeupdate = e => {
+            // Regra de 3
+            const porcentagemProgresso = (100 * video.currentTime) / video.duration
+ 
+            progresso.style.width = Math.round(porcentagemProgresso) + "%"
+            progresso.innerHTML = progresso.style.width
+        }
+ 
+    }
+ 
+    function configurarVideo(videoId) {
+        const video = document.getElementById(videoId)
+ 
+        video.oncontextmenu = () => false
+ 
+        playVideo(videoId, video)
+        pauseVideo(videoId, video)
+        progressoVideo(videoId, video)
+    }
+ 
+    configurarVideo("meuVideo")
+</script>

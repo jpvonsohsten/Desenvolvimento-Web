@@ -1,0 +1,64 @@
+<title>Projeto</title>
+<link rel="stylesheet" href="http://files.cod3r.com.br/curso-web/tree.css">
+<style>
+.tree li[wm-folder], .tree li[wm-folder] > ul {
+  cursor: text;
+}
+
+.tree li[wm-folder="backend"] {
+  cursor: pointer;
+}
+</style>
+<h1>Projeto</h1>
+<ul class="tree">
+  <li>
+    <span wm-folder="backend">backend</span>
+    <ul>
+      <li>
+        <span wm-folder="app">app</span>
+        <ul>
+          <li>produto.js</li>
+          <li>usuario.js</li>
+          <li>venda.js</li>
+        </ul>
+      </li>
+      <li>
+        <span wm-folder="config">config</span>
+        <ul style="display: none;">
+          <li>banco.js</li>
+          <li>rotas.js</li>
+          <li>servidor.js</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <span wm-folder="frontend">frontend</span>
+    <ul>
+      <li>
+        <span wm-folder="public">public</span>
+        <ul style="display: none;">
+          <li>app.css</li>
+          <li>app.js</li>
+          <li>index.html</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<script>
+document.querySelectorAll('[wm-folder]').forEach(folder => {
+  if (folder.getAttribute('wm-folder') !== 'app' && folder.getAttribute('wm-folder') !== 'config' && folder.getAttribute('wm-folder') !== 'frontend' && folder.getAttribute('wm-folder') !== 'public' && folder.getAttribute('wm-folder') !== 'backend') {
+    folder.style.cursor = 'text';
+  } else {
+    folder.style.cursor = 'pointer';
+  }
+
+  folder.onclick = function(e) {
+    e.stopPropagation();
+    const ul = folder.nextElementSibling;
+    const d = ul.style.display;
+    ul.style.display = d === 'none' ? 'block' : 'none';
+  }
+});
+</script>
